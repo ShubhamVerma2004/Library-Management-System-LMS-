@@ -1,0 +1,338 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Optional: Add some custom styling */
+        .tab-content {
+            margin-top: 20px;
+        }
+        /* Marquee container for hiding overflow */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+            height: 30px;
+        }
+
+        /* Marquee animation */
+        .marquee {
+            display: inline-block;
+            position: absolute;
+            animation: marquee 10s linear infinite;
+            white-space: nowrap;
+        }
+
+        /* Marquee animation keyframes */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%); /* Start offscreen to the right */
+            }
+
+            50% {
+                transform: translateX(0); /* Fully visible at the center */
+            }
+
+            100% {
+                transform: translateX(-100%); /* End offscreen to the left */
+            }
+        }
+
+                /* Text styles */
+                .marquee span {
+                    display: inline-block;
+                    margin-right: 50px;
+                    font-size: 16px;
+                    color: white;
+                }
+                .btn-white {
+                    background-color: white;
+                    color: black; /* Text color */
+                    border: 1px solid #ccc; /* Border color, you can adjust this */
+                }
+            
+                .btn-white:hover {
+                    background-color: #f8f9fa; /* Change background color on hover */
+                    color: black; /* Text color on hover */
+                }
+                html, body {
+                    overflow-x: hidden; /* Disable horizontal scrollbar */
+                    width: 100%;
+                    margin: 0;
+                    padding: 0;
+                }
+    </style>
+</head>
+<body>
+      <!-- Top Header Start-->
+      <div class="row bg-black align-items-center py-3 px-3">
+        <!-- Logo Section -->
+        <div class="col-md-1 text-center">
+            <img src="{% static 'logo.jpg' %}" alt="Logo" class="img-fluid" style="max-height: 100px;">
+        </div>
+
+        <!-- University Name -->
+        <div class="col-md-4 text-center">
+            <h2 class="text-white mb-0">Tilka Manjhi Bhagalpur University</h2>
+        </div>
+
+        <!-- Library Management System -->
+        <div class="col-md-4 text-center">
+            <h3 class="text-white mb-0">Library Management System</h3>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="col-md-3 text-end">
+            <h3 class="text-white mb-0">
+                <i class="fa-solid fa-phone"></i> +91-9451348244
+            </h3>
+        </div>
+    </div>
+    <!-- Top Header End-->
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light  " style="background-color: red;">
+        <div class="container-fluid">
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- You can add more navbar items here if needed -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'book_list' %}">Your Available Books</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                   
+                    <li class="nav-item">
+                        <span class="navbar-text me-5 text-white">
+                            Welcome, {{ user.username }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-white" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+        
+    <!-- Announcements and marquee start -->
+    <div class="row py-2 bg-black">
+        <div class="col-sm-12">
+            <div class="marquee-container">
+                <div class="marquee">
+                    <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                    <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                    <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                    <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Announcements and marquee end -->
+
+
+    <!-- Tab Navigation -->
+    <div class="container mt-4">
+        <h1 class="text-center">Library Management System</h1>
+        
+<!-- Nav Tabs -->
+<ul class="nav nav-tabs" id="dashboardTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="programs-tab" data-bs-toggle="tab" data-bs-target="#programs" type="button" role="tab" aria-controls="programs" aria-selected="true">Programs</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="branches-tab" data-bs-toggle="tab" data-bs-target="#branches" type="button" role="tab" aria-controls="branches" aria-selected="false">Branches</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="subjects-tab" data-bs-toggle="tab" data-bs-target="#subjects" type="button" role="tab" aria-controls="subjects" aria-selected="false">Subjects</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="books-tab" data-bs-toggle="tab" data-bs-target="#books" type="button" role="tab" aria-controls="books" aria-selected="false">Books</button>
+    </li>
+
+</ul>
+
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="dashboardTabContent">
+            <!-- Programs Section -->
+            <div class="tab-pane fade show active" id="programs" role="tabpanel" aria-labelledby="programs-tab">
+                <h2>Programs</h2>
+                <ul class="list-group">
+                    {% for program in programs %}
+                        <li class="list-group-item">{{ program.name }}</li>
+                    {% empty %}
+                        <li class="list-group-item">No programs available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Branches Section -->
+            <div class="tab-pane fade" id="branches" role="tabpanel" aria-labelledby="branches-tab">
+                <h2>Branches</h2>
+                <ul class="list-group">
+                    {% for branch in branches %}
+                        <li class="list-group-item">
+                            {{ branch.name }} (Program: {{ branch.program.name }})
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No branches available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Subjects Section -->
+            <div class="tab-pane fade" id="subjects" role="tabpanel" aria-labelledby="subjects-tab">
+                <h2>Subjects</h2>
+                <ul class="list-group">
+                    {% for subject in subjects %}
+                        <li class="list-group-item">
+                            {{ subject.name }} (Branch: {{ subject.branch.name }})
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No subjects available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Books Section -->
+            <div class="tab-pane fade" id="books" role="tabpanel" aria-labelledby="books-tab">
+                <h2>Books</h2>
+                <ul class="list-group">
+                    {% for book in books %}
+                        <li class="list-group-item">
+                            <strong>{{ book.title }}</strong> by {{ book.author }} 
+                            (Subject: 
+                            {% if book.subject %}
+                                {{ book.subject.name }}
+                            {% else %}
+                                General
+                            {% endif %}
+                            )
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No books available.</li>
+                    {% endfor %}
+                </ul>
+                <div>
+                    <h1>Welcome, {{ user.username }}</h1>
+
+                    <h2>Your Issued Books</h2>
+                    <ul>
+                        {% for issue in issued_books %}
+                            <li>
+                                {{ issue.book.title }} (Issued on: {{ issue.issue_date }})
+                                <img src="{{ issue.book.image.url }}" alt="{{ issue.book.title }}" width="50" height="50">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                
+                    <a href="{% url 'book_list' %}">Browse Books</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</br></br></br>
+
+
+
+</div>
+
+
+    <!--footer start-->
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div class=" p-0 ">
+        <footer class="text-white text-center text-lg-start bg-warning bg-black">
+            <!-- Grid container -->
+            <div class="container p-3">
+                <!--Grid row-->
+                <div class="row mt-4">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">Welcome To Tilka Manjhi Bhagalpur University </h5>
+                        <p class="text-white">
+                            Welcome to Tilka Manjhi Bhagalpur University, a prestigious institution in Bhagalpur, Bihar, dedicated to providing quality education, fostering research, and promoting holistic development. It offers diverse academic programs and strives to empower students for success in various fields.
+                        </p>
+                        <div class="mt-4">
+                            <!-- Facebook -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-facebook-f"></i></a>
+                            <!-- Dribbble -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-dribbble"></i></a>
+                            <!-- Twitter -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-twitter"></i></a>
+                            <!-- Google + -->
+                            <a type="button" class="btn btn-floating text-white "style="background-color: red;"><i class="fab fa-google-plus-g"></i></a>
+                            <!-- Linkedin -->
+                        </div>
+                    </div>
+                    <!--Grid column-->
+    
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4 pb-1">Subscribe</h5>
+                        <p class="text-white">Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        <div class="form-outline form-white mb-4">
+                            <input type="text" id="formControlLg" class="form-control form-control-lg" placeholder="Enter the Email" />
+                        </div>
+                    </div>
+                    <!--Grid column-->
+    
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">Useful Links</h5>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <ul style="list-style-type:none;">
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">HOME</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Service</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Contact</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Our Services</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Contact Us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5">
+                                <ul style="list-style-type:none;">
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">About</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Portfolio</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">About Us</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Expert Team</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Latest News</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+            <!-- Grid container -->
+    
+            <!-- Copyright -->
+            <div class="text-center p-4  text-white"style="background-color: red;" >
+                © Copyright 2024 Designed & Developed By | Shubham Kumar Verma .
+
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+    
+<!-- End of .container -->
+
+        <!--footer end -->
+</div>
+
+    <!-- Bootstrap JS Bundle (Includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

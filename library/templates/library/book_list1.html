@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Books</title>
+    <style>
+        /* Styling for availability */
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+        .not-available {
+            color: red;
+            font-weight: bold;
+        }
+        img {
+            margin-right: 15px;
+            width: 50px;
+        }
+        a {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        a.issue-btn {
+            background-color: #28a745;
+        }
+        a.issue-btn:hover {
+            background-color: #218838;
+        }
+        a.disabled {
+            background-color: #6c757d;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Books</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <img src="{{ book.image.url }}" alt="{{ book.title }}">
+            <strong>{{ book.title }}</strong> by {{ book.author }}
+            <p>{{ book.description }}</p>
+            <span class="{% if book.is_available %}available{% else %}not-available{% endif %}">
+                {% if book.is_available %}Available{% else %}Not Available{% endif %}
+            </span>
+            {% if book.is_available %}
+                <a href="{% url 'issue_book' book.id %}" class="issue-btn">Issue</a>
+            {% else %}
+                <a href="#" class="disabled">Not Available</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

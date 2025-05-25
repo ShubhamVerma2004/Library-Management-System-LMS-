@@ -1,0 +1,331 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Library Management System</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .register-form {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #d9534f;
+        }
+
+        .register-form input {
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .register-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #d9534f; 
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .register-form button:hover {
+            background-color: #c9302c; 
+        }
+
+        .register-form p {
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-form a {
+            color: #d9534f; 
+        }
+
+        .register-form a:hover {
+            text-decoration: underline;
+        }
+
+        .image-side {
+            background-image: url({% static 'TBU.jpeg' %});
+            background-size: cover;
+            background-position: center;
+            height: 100%; 
+        }
+
+        @media (max-width: 768px) {
+            .register-form {
+                margin-top: 20px;
+                max-width: 90%;
+            }
+
+            .image-side {
+                height: 300px;
+            }
+        }
+        .main-content {
+            margin-top: 70px; 
+        }
+
+        
+        .row {
+            display: flex;
+            align-items: stretch; 
+        }
+         
+         .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+            height: 30px; 
+        }
+        
+        /* Marquee animation */
+        .marquee {
+            display: inline-block;
+            position: absolute;
+            animation: marquee 10s linear infinite;
+            white-space: nowrap;
+        }
+        
+        /* Marquee animation keyframes */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%); /* Start offscreen to the right */
+            }
+            50% {
+                transform: translateX(0); /* Fully visible at the center */
+            }
+            100% {
+                transform: translateX(-100%); /* End offscreen to the left */
+            }
+        }
+        
+        /* Text styles */
+        .marquee span {
+            display: inline-block;
+            margin-right: 50px; 
+            font-size: 16px; 
+            color: white;
+        }
+        html, body {
+            overflow-x: hidden; 
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+ <!-- Top Header Start--->
+ {% load static %}
+ <div class="row bg-black align-items-center py-3 px-3">
+     <!-- Logo Section -->
+     <div class="col-md-1 text-center">
+         <img src="{% static 'logo.jpg' %}" alt="Logo" class="img-fluid" style="max-height: 100px;">
+         
+     </div>
+ 
+     <!-- University Name -->
+     <div class="col-md-4 text-center">
+         <h2 class="text-white mb-0">Tilka Manjhi Bhagalpur University</h2>
+     </div>
+ 
+     <!-- Library Management System -->
+     <div class="col-md-4 text-center">
+         <h3 class="text-white mb-0">Library Management System</h3>
+     </div>
+ 
+     <!-- Contact Section -->
+     <div class="col-md-3 text-end">
+         <h3 class="text-white mb-0">
+            <i class="fa-solid fa-phone"></i> +91-9451348244
+         </h3>
+     </div>
+ </div>
+ 
+ 
+ 
+     <!-- Top Header End--->
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg" style="background-color: red;">
+         <div class="container-fluid">
+             <!-- Toggle button for smaller screens -->
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+             
+             <!-- Navbar links -->
+             <div class="collapse navbar-collapse" id="navbarNav">
+                 <ul class="navbar-nav me-auto">
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="#">About Us</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="{% url 'register' %}"> Student Register</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-white" href="#">Contact Us</a>
+                     </li>
+                 </ul>
+     
+                 <!-- Search bar -->
+                 <form class="d-flex" role="search" method="GET" action="#">
+                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                     <button class="btn btn-outline-light" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                 </form>
+             </div>
+         </div>
+     </nav>
+     
+             <!-- Announcements and marquee start -->
+             <div class="row py-2 bg-black">
+                 <div class="col-sm-12">
+                     <div class="marquee-container">
+                         <div class="marquee">
+                             <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                             <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                             <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                             <span class="mx-3 text-white">Welcome to the Library Management System</span>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+ 
+             
+             <!-- Announcements and marquee end -->
+<!-- Main Content -->
+<div class="container-fluid main-content">
+    <div class="row">
+        <!-- Form Section (Left Side) -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center">
+            <div class="register-form">
+                <form method="post">
+                    {% csrf_token %}
+                    <h2>Register</h2>
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
+                    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Image Section (Right Side) -->
+        <div class="col-md-6 image-side">
+            <!-- Background image is set in CSS -->
+        </div>
+    </div>
+</div>
+<!--footer start-->
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div class=" p-0 ">
+        <footer class="text-white text-center text-lg-start bg-warning bg-black">
+            <!-- Grid container -->
+            <div class="container p-3">
+                <!--Grid row-->
+                <div class="row mt-4">
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">Welcome To Tilka Manjhi Bhagalpur University </h5>
+                        <p class="text-white">
+                            Welcome to Tilka Manjhi Bhagalpur University, a prestigious institution in Bhagalpur, Bihar, dedicated to providing quality education, fostering research, and promoting holistic development. It offers diverse academic programs and strives to empower students for success in various fields.
+                        </p>
+                        <div class="mt-4">
+                            <!-- Facebook -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-facebook-f"></i></a>
+                            <!-- Dribbble -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-dribbble"></i></a>
+                            <!-- Twitter -->
+                            <a type="button" class="btn btn-floating text-white"style="background-color: red;"><i class="fab fa-twitter"></i></a>
+                            <!-- Google + -->
+                            <a type="button" class="btn btn-floating text-white "style="background-color: red;"><i class="fab fa-google-plus-g"></i></a>
+                            <!-- Linkedin -->
+                        </div>
+                    </div>
+                    <!--Grid column-->
+    
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4 pb-1">Subscribe</h5>
+                        <p class="text-white">Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        <div class="form-outline form-white mb-4">
+                            <input type="text" id="formControlLg" class="form-control form-control-lg" placeholder="Enter the Email" />
+                        </div>
+                    </div>
+                    <!--Grid column-->
+    
+                    <!--Grid column-->
+                    <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase mb-4">Useful Links</h5>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <ul style="list-style-type:none;">
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">HOME</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Service</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Contact</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Our Services</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Contact Us</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-5">
+                                <ul style="list-style-type:none;">
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">About</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Portfolio</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">About Us</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Expert Team</a></li>
+                                    <li class="mb-2"><a href="#" style="color: rgb(255, 255, 255);">Latest News</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </div>
+            <!-- Grid container -->
+    
+            <!-- Copyright -->
+            <div class="text-center p-4  text-white"style="background-color: red;" >
+                © Copyright 2024 Designed & Developed By | Shubham Kumar Verma .
+
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+    
+<!-- End of .container -->
+
+        <!--footer end -->
+
+<!-- Bootstrap JS Bundle (Includes Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
